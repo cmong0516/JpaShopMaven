@@ -5,6 +5,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -33,6 +34,8 @@ public class JpaMain {
 //            Team findTeam = em.find(Team.class, findTeamId);
 //            String teamName = findTeam.getName();
             Team findTeam = findMember.getTeam();
+            // @OneToMany 로 양방향 연관관계 설정을 해주었더니 이게 가능하다.
+            List<Member> members = findMember.getTeam().getMembers();
 
             System.out.println("findTeam = " + findTeam.getName());
 
