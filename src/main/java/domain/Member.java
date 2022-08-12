@@ -22,13 +22,13 @@ public class Member {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID")
-    private Team team;
+//    @ManyToOne
+//    @JoinColumn(name = "TEAM_ID")
+//    private Team team;
 
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
+//    @OneToOne
+//    @JoinColumn(name = "LOCKER_ID")
+//    private Locker locker;
 
     public Long getId() {
         return id;
@@ -46,16 +46,48 @@ public class Member {
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
+    public String getCity() {
+        return city;
     }
 
-//    public void setTeam(Team team) {
-//        this.team = team;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getZipcode() {
+        return zipcode;
+    }
+
+    public void setZipcode(String zipcode) {
+        this.zipcode = zipcode;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    //    public Team getTeam() {
+//        return team;
 //    }
-
-    public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
-    }
+//
+////    public void setTeam(Team team) {
+////        this.team = team;
+////    }
+//
+//    public void changeTeam(Team team) {
+//        this.team = team;
+//        team.getMembers().add(this);
+//    }
 }
