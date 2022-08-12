@@ -24,8 +24,21 @@ public class JpaMain {
             Member member = new Member();
             member.setUsername("member1");
 //            member.setTeamId(team.getId());
-            member.setTeam(team);
+//            member.setTeam(team);
+
+//            public void changeTeam(Team team) {
+//                this.team = team;
+//                team.getMembers().add(this);
+//            }
+            member.changeTeam(team);
+
             em.persist(member);
+
+            team.getMembers().add(member);
+            // em.flush();
+            // em.clear();
+            // 를 안해주고 members 를 반복문 출력 하면 DB 에서 값을 가져와서 출력하는게 아닌 1차캐시의 값을 출력한다.
+            // 또 객체지향적으로 보면 양방향에 처리해주는게 맞다.
 
             // 객체를 테이블에 맞추어 데이터 중심의 설계를 하면 협력관계를 만들수 없다.
             // 아래처럼 각각의 Table 에서 값을 조회하여 여러번 찾아야함.
