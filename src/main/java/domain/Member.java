@@ -1,6 +1,8 @@
 package domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -11,14 +13,22 @@ public class Member {
     private Long id;
     @Column(name = "USERNAME")
     private String username;
-//    private String city;
-//    private String street;
-//    private String zipcode;
+    private String city;
+    private String street;
+    private String zipcode;
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "TEAM_ID")
     private Team team;
+
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
 
     public Long getId() {
         return id;
