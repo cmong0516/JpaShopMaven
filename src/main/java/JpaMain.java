@@ -63,21 +63,51 @@ public class JpaMain {
 //            em.persist(orderItem);
 //            // * 단방향 설계가 가장 중요하고 양방향 설계는 필요에 의해 작성한다.
 
-            Book book = new Book();
-            book.setName("JPA");
-            book.setAuthor("김영한");
+//            Book book = new Book();
+//            book.setName("JPA");
+//            book.setAuthor("김영한");
+//
+//            em.persist(book);
 
-            em.persist(book);
+            Member member = new Member();
+            member.setUsername("hello");
+
+            em.persist(member);
+
+            em.flush();
+            em.clear();
+
+//            Member findMember = em.find(Member.class, member.getId());
+//            System.out.println("findMember.getId() = " + findMember.getId());
+//            System.out.println("findMember.getUsername() = " + findMember.getUsername());
+            // 멤버만 출력할때 팀을 조회할 필요가 있을까 ?
+            Member findMember = em.getReference(Member.class, member.getId());
+
+            System.out.println("findMember.getId() = " + findMember.getId());
+            System.out.println("findMember.getUsername() = " + findMember.getUsername());
+
 
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
-        }finally {
+        } finally {
             em.close();
         }
 
         emf.close();
 
+    }
+
+    private static void printMember(Member member) {
+        System.out.println("member.getUsername() = " + member.getUsername());
+    }
+
+    private static void printMemberAndTeam(Member member) {
+        String username = member.getUsername();
+        System.out.println("username = " + username);
+
+        Team team = member.getTeam();
+        System.out.println("team = " + team);
     }
 }
 
