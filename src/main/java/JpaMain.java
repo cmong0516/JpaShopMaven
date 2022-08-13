@@ -1,7 +1,4 @@
-import domain.Member;
-import domain.Order;
-import domain.OrderItem;
-import domain.Team;
+import domain.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -58,13 +55,19 @@ public class JpaMain {
 //            order.addOrderItem(new OrderItem());
 
 //            2.
-            Order order = new Order();
-            em.persist(order);
+//            Order order = new Order();
+//            em.persist(order);
+//
+//            OrderItem orderItem = new OrderItem();
+//            orderItem.setOrder(order);
+//            em.persist(orderItem);
+//            // * 단방향 설계가 가장 중요하고 양방향 설계는 필요에 의해 작성한다.
 
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            em.persist(orderItem);
-            // * 단방향 설계가 가장 중요하고 양방향 설계는 필요에 의해 작성한다.
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("김영한");
+
+            em.persist(book);
 
             tx.commit();
         } catch (Exception e) {
