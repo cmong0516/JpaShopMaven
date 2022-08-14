@@ -69,10 +69,13 @@ public class JpaMain {
 //
 //            em.persist(book);
 
-            Member member = new Member();
-            member.setUsername("hello");
+            Member member1 = new Member();
+            member1.setUsername("member1");
+            em.persist(member1);
 
-            em.persist(member);
+            Member member2 = new Member();
+            member2.setUsername("member2");
+            em.persist(member2);
 
             em.flush();
             em.clear();
@@ -81,10 +84,30 @@ public class JpaMain {
 //            System.out.println("findMember.getId() = " + findMember.getId());
 //            System.out.println("findMember.getUsername() = " + findMember.getUsername());
             // 멤버만 출력할때 팀을 조회할 필요가 있을까 ?
-            Member findMember = em.getReference(Member.class, member.getId());
+//            Member findMember = em.getReference(Member.class, member.getId());
+//            // 프록시
+//            // 실제 클래스를 상속받아 만들어짐.
+//            // 그래서 겉모양은 같음.
+//            // 또 사용하는 입장에서 구분하지 않고 사용해도됨.
+//
+//            System.out.println("findMember.getId() = " + findMember.getId());
+//            System.out.println("findMember.getUsername() = " + findMember.getUsername());
 
-            System.out.println("findMember.getId() = " + findMember.getId());
-            System.out.println("findMember.getUsername() = " + findMember.getUsername());
+//            Member m1 = em.find(Member.class, member1.getId());
+//            Member m2 = em.find(Member.class, member2.getId());
+//
+//
+//            System.out.println("m1 == m2 : " + (m1.getClass() == m2.getClass()));
+//            // true
+
+            Member m1 = em.find(Member.class, member1.getId());
+            Member m2 = em.getReference(Member.class, member2.getId());
+            System.out.println("m1 == m2 : " + (m1.getClass() == m2.getClass()));
+            // false
+            Member reference = em.getReference(Member.class, m1.getId());
+            System.out.println("m1 == reference : " +(m1.getClass() == reference.getClass()));
+            // true
+
 
 
             tx.commit();
