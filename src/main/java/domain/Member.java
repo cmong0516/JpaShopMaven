@@ -22,7 +22,17 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    // fetch LAZY 해주면 프록시 객체를 조회.
+    // member 를 조회할때 team 이 필요하지 않으면 member 만 조회할수 있다.
+    // 불필요한 조회를 안해서 성능업.
+    // @ManyToOne(fetch = FetchType.EAGER)
+    // EAGER 를 하면 member , team 둘다 초기화.
+    // ** 실무에선 가급적 지연 로딩(LAZY)만 사용
+    // 즉시로딩 적용시(EAGER) 예상치 못한 SQL 발생 , JPQL 에서 N + 1 문제 발생.
+    // @ManyToOne, @OneToOne 은 기본이 즉시로딩 >> LAZY 로 다 바꿔
+    // LAZY 이지만 한번에 가져오고 싶으면 JPQL join fetch 사용
     @JoinColumn(name = "TEAM_ID")
     private Team team;
 
